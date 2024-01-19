@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo>
+    <data>
+        <record id="view_hr_department_form_inherit2" model="ir.ui.view">
+        	<field name="name">view.hr.department.form.inherit2</field>
+        	<field name="model">hr.department</field>
+        	<field name="inherit_id" ref="hr.view_department_form"/>
+			<field name="arch" type="xml">
+                <xpath expr="//form[1]/sheet[1]/group[1]/field[@name='company_id']" position="replace"/>
+                <xpath expr="//form[1]/sheet[1]/group[1]/field[@name='name']" position="after">
+                    <xpath expr="//field[@name='custom_appraisal_templates']" position="move"/>
+                    <xpath expr="//field[@name='parent_id']" position="move"/>
+                </xpath>
+                <xpath expr="//field[@name='parent_id']" position="before">
+                    <field name="branch_id" string="Branch"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_hr_department_tree_inherit" model="ir.ui.view">
+        	<field name="name">view.hr.department.inherit</field>
+        	<field name="model">hr.department</field>
+        	<field name="inherit_id" ref="hr.view_department_tree"/>
+			<field name="arch" type="xml">
+                <xpath expr="//field[@name='manager_id']" position="replace"/>
+                <xpath expr="//field[@name='display_name']" position="replace">
+                    <field name="complete_name" optional="show"/>
+                    <xpath expr="//field[@name='total_employee']" position="move"/>
+                    <xpath expr="//field[@name='parent_id']" position="move"/>
+                    <field name="branch_id" optional="show"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
