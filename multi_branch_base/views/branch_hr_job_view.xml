@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo>
+    <data>
+        <record id="view_hr_job_form_inherit2" model="ir.ui.view">
+        	<field name="name">view.hr.hr.form.inherit2</field>
+        	<field name="model">hr.job</field>
+        	<field name="inherit_id" ref="hr.view_hr_job_form"/>
+			<field name="arch" type="xml">
+                <xpath expr="//form[1]/sheet[1]/notebook[1]/page[@name='recruitment_page']/group[1]/group[@name='recruitment']/field[@name='company_id']" position="after">
+                    <field name="branch_id" string="Branch"/>
+                </xpath>
+                <xpath expr="//field[@name='department_id']" position="after">
+                    <field name="parent_position_id" string="Parent Position"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_hr_job_tree_inherit" model="ir.ui.view">
+        	<field name="name">view.hr.tree.inherit</field>
+        	<field name="model">hr.job</field>
+        	<field name="inherit_id" ref="hr.view_hr_job_tree"/>
+			<field name="arch" type="xml">
+                <xpath expr="//field[@name='is_published']" position="after">
+                    <field name="branch_id" optional="show"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
