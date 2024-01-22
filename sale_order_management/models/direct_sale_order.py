@@ -90,6 +90,7 @@ class DirectSaleOrder(models.Model):
     revise_reason_id = fields.Many2one(comodel_name='revise.reason', string='Revise Reason')
     cancel_reason_id = fields.Many2one(comodel_name='cancel.reason', string='Cancel Reason')
     payment_ref = fields.Char(string='Payment Reference')
+    is_pre_sale = fields.Boolean(string='Is Pre Sale')
 
 class DirectSaleOrderLines(models.Model):
     

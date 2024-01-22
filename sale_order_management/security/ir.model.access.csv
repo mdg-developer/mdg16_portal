@@ -6,3 +6,4 @@ access_product_delivery_order,product_delivery_order_group_user,model_product_de
 access_promotion_lines,promotion_lines_group_user,model_promotion_lines,,1,1,1,1
 access_revise_reason,revise_reason_group_user,model_revise_reason,,1,1,1,1
 access_cancel_reason,cancel_reason_group_user,model_cancel_reason,,1,1,1,1
+access_pre_sale_order,pre_sale_order_group_user,model_pre_sale_order,,1,1,1,1
