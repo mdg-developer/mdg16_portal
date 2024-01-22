@@ -1,0 +1,95 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+
+        <record id="view_sale_order_form_inherit" model="ir.ui.view">
+        	<field name="name">view.sale.order.form.inherit</field>
+        	<field name="model">sale.order</field>
+        	<field name="inherit_id" ref="sale.view_order_form"/>
+			<field name="arch" type="xml">
+                <xpath expr="//button[@name='action_cancel']" position="after">
+                    <button name="action_revised" type="object" string="Revised" attrs="{'invisible': ['|', ('state', 'not in', ['draft', 'sent','sale']), ('id', '=', False)]}" data-hotkey="z"/>
+                </xpath>
+                <xpath expr="//button[@name='action_draft']" position="attributes">
+                    <attribute name="states">cancel,revised</attribute>
+                </xpath>
+			</field>
+        </record>
+
+        <record id="action_sale_order_2" model="ir.actions.act_window">
+            <field name="name">All Orders</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sale.order</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{}</field>
+            <field name="domain">[('state','in',['draft','sale','sent','done','cancel','revised'])]</field> 
+            <field name="view_id" ref="sale.view_order_tree"/>
+        </record>
+
+        <record id="action_draft_sale_order" model="ir.actions.act_window">
+            <field name="name">Draft Orders</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sale.order</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{}</field>
+            <field name="domain">[('state','=','draft')]</field> 
+            <field name="context">{
+				'default_state':'draft'
+				}
+			</field>
+            <field name="view_id" ref="sale.view_order_tree"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create new Draft Sale Order
+                </p>
+            </field>
+        </record>
+
+        <record id="action_confirm_sale_order" model="ir.actions.act_window">
+            <field name="name">Confirmed Orders</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sale.order</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{}</field>
+            <field name="domain">[('state','=','sale')]</field> 
+            <field name="context">{
+				'default_state':'sale'
+				}
+			</field>
+            <field name="view_id" ref="sale.view_order_tree"/>
+        </record>
+
+        <record id="action_cancelled_sale_order" model="ir.actions.act_window">
+            <field name="name">Cancelled Orders</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sale.order</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{}</field>
+            <field name="domain">[('state','=','cancel')]</field> 
+            <field name="view_id" ref="sale.view_order_tree"/>
+        </record>
+
+        <record id="action_revised_sale_order" model="ir.actions.act_window">
+            <field name="name">Revised Orders</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sale.order</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{}</field>
+            <field name="domain">[('state','=','revised')]</field> 
+            <field name="view_id" ref="sale.view_order_tree"/>
+        </record>
+
+        <menuitem id="menu_sale_order_ext" sequence="70" parent="sale.sale_order_menu" name="Orders" />
+
+        <menuitem id="menu_sale_order_2" name="All Orders" parent="menu_sale_order_ext" action="action_sale_order_2" sequence="10"/>
+
+        <menuitem id="menu_draft_sale_order" name="Draft Orders" parent="menu_sale_order_ext" action="action_draft_sale_order" sequence="20"/>
+
+        <menuitem id="menu_confirm_sale_order" name="Confirm Orders" parent="menu_sale_order_ext" action="action_confirm_sale_order" sequence="30"/>
+
+        <menuitem id="menu_cancelled_sale_order" name="Cancelled Orders" parent="menu_sale_order_ext" action="action_cancelled_sale_order" sequence="40"/>
+    
+        <menuitem id="menu_revised_sale_order" name="Revised Orders" parent="menu_sale_order_ext" action="action_revised_sale_order" sequence="50"/>
+
+    </data>
+</odoo>

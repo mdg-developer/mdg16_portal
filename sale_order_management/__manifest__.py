@@ -31,6 +31,7 @@
         'security/ir.model.access.csv',
         'views/view_direct_sale_order.xml',
         'views/view_pre_sale_order.xml',
+        'views/view_sale_order.xml',
     ],
     'installable': True,
     'auto_install': False,
