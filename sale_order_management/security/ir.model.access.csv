@@ -1,0 +1,8 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_direct_sale_order,direct_sale_order_group_user,model_direct_sale_order,,1,1,1,1
+access_direct_sale_order_lines,direct_sale_order_lines_group_user,model_direct_sale_order_lines,,1,1,1,1
+access_outlettype,outlettype_group_user,model_outlet_type,,1,1,1,1
+access_product_delivery_order,product_delivery_order_group_user,model_product_delivery_order,,1,1,1,1
+access_promotion_lines,promotion_lines_group_user,model_promotion_lines,,1,1,1,1
+access_revise_reason,revise_reason_group_user,model_revise_reason,,1,1,1,1
+access_cancel_reason,cancel_reason_group_user,model_cancel_reason,,1,1,1,1

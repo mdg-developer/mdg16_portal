@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_tablet_information,tablet_information_group_user,model_tablet_information,,1,1,1,1

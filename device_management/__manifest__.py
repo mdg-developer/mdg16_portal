@@ -28,7 +28,8 @@
     'category': 'general/device',
     'depends': ['sale'],
     'data': [
-        'views/view_tablet_information.xml',
+        'security/ir.model.access.csv',
+        # 'views/view_tablet_information.xml',
     ],
     'installable': True,
     'auto_install': False,

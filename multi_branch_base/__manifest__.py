@@ -52,9 +52,9 @@
         'views/branch_account_views.xml',
         'views/branch_stock_warehouse_views.xml',
         'views/branch_report_template.xml',
-        'views/branch_hr_job_view.xml',
-        'views/branch_hr_department_view.xml',
-        'views/branch_hr_employee_view.xml'
+        # 'views/branch_hr_job_view.xml',
+        # 'views/branch_hr_department_view.xml',
+        # 'views/branch_hr_employee_view.xml'
     ],
     'images': ['static/description/banner.png'],
     'license': "AGPL-3",

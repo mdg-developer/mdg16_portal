@@ -26,8 +26,9 @@
     'company': 'Myanmar Distribution Group Co.,Ltd',
     'maintainer': 'SHL MDG',
     'category': 'Sale',
-    'depends': ['sale', 'sale_order_management'],
+    'depends': ['sale'],
     'data': [
+        'security/ir.model.access.csv',
         # 'views/view_tablet_information.xml',
     ],
     'installable': True,

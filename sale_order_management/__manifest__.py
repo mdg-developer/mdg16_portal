@@ -26,10 +26,11 @@
     'company': 'Myanmar Distribution Group Co.,Ltd',
     'maintainer': 'SHL MDG',
     'category': 'Sale Orders',
-    'depends': ['sale', 'device_management'],
+    'depends': ['base', 'crm', 'stock','sale', 'device_management', 'sale_plan_management'],
     'data': [
+        'security/ir.model.access.csv',
         'views/view_direct_sale_order.xml',
-        'views/view_pre_sale_order.xml',
+        # 'views/view_pre_sale_order.xml',
     ],
     'installable': True,
     'auto_install': False,

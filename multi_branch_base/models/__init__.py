@@ -32,6 +32,6 @@ from . import branch_account_payment
 from . import branch_account_journal
 from . import branch_account_account
 from . import branch_stock_warehouse
-from . import branch_hr_job
-from . import branch_hr_department
-from . import branch_hr_employee
+# from . import branch_hr_job
+# from . import branch_hr_department
+# from . import branch_hr_employee

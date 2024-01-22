@@ -12,3 +12,10 @@ class SalePlanDay(models.Model):
     _description = 'Sale Plan Day'
 
     name = fields.Char(string='Sale Plan Name')
+
+class SalePlanTrip(models.Model):
+
+    _name = 'sale.plan.trip'
+    _description = 'Sale Plan Treip'
+
+    name = fields.Char(string='Sale Plan Trip')

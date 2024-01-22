@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_pre_sale_order,pre_sale_order_group_user,model_pre_sale_order,,1,1,1,1
+access_sale_plan_day,sale_plan_day_group_user,model_sale_plan_day,,1,1,1,1
+access_sale_plan_trip,sale_plan_trip_group_user,model_sale_plan_trip,,1,1,1,1

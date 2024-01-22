@@ -36,6 +36,8 @@ class OutletType(models.Model):
     _name = 'outlet.type'
     _description = 'Outlet Type'
 
+    name = fields.Char(string='Outlet Type')
+
 class DirectSaleOrder(models.Model):
 
     _name = 'direct.sale.order'
@@ -43,14 +45,14 @@ class DirectSaleOrder(models.Model):
 
     name = fields.Char('Order Reference', size=64)
     partner_id = fields.Many2one(comodel_name='res.partner', string='Customer', copy=True)
-    customer_code = fields.Char(related='partner_id.name', string='Customer Code', copy=True)
+    customer_code = fields.Char( string='Customer Code', copy=True)
     outlettype_id = fields.Many2one(comodel_name='outlet.type', string='Outlet Type', copy=True)
     user_id = fields.Many2one(comodel_name='res.users', string='Salesman Name', copy=True)
     sale_plan_name = fields.Char('Sale Plan Name', copy=True)
     latitude = fields.Float('Geo Latitude', copy=True)
     longitude = fields.Float('Geo Longitude', copy=True)
     amount_total = fields.Float('Amount Total', copy=True)
-    type = fields.Selection(PAYMENT_TYPE, string='Payment Type', copy=True)
+    payment_type = fields.Selection(PAYMENT_TYPE, string='Payment Type', copy=True)
     delivery_remark = fields.Selection(DELIVERY_REMARK, string='Delivery Remark', copy=True)
     additional_discount = fields.Float(string='Additional Discount', copy=True)
     deduction_amount = fields.Float(string='Deduction Amount', copy=True)
@@ -77,16 +79,17 @@ class DirectSaleOrder(models.Model):
     promotion_ids = fields.One2many(comodel_name='promotion.lines', inverse_name='order_id', string='Promotions')
     pricelist_id = fields.Many2one(comodel_name='product.pricelist', string='Pricelist')
     payment_line_ids = fields.One2many(comodel_name='account.payment', inverse_name='order_id', string='Payment Lines')
-    branch_id = fields.Many2one(comodel_name='res.branch', string='Branch')
+    # branch_id = fields.Many2one(comodel_name='res.branch', string='Branch')
     is_convert = fields.Boolean(string='Is Convert')
     unvoid_reprint_count = fields.Integer(string='Unvoid Reprint Count')
     void_reprint_count = fields.Integer(string='void Reprint Count')
     order_team = fields.Many2one(comodel_name='crm.team', string='Order Team')
     is_rebate_later = fields.Boolean(string='Is Rebate Later')
-    sale_person_id = fields.many2one(comodel_name='res.users', string='Sale Person')
+    sale_person_id = fields.Many2one(comodel_name='res.users', string='Sale Person')
     pre_sale_order_id = fields.Many2one(comodel_name='pre.sale.order', string='Pre Sale Order')
     revise_reason_id = fields.Many2one(comodel_name='revise.reason', string='Revise Reason')
     cancel_reason_id = fields.Many2one(comodel_name='cancel.reason', string='Cancel Reason')
+    payment_ref = fields.Char(string='Payment Reference')
 
 class DirectSaleOrderLines(models.Model):
     
@@ -141,7 +144,16 @@ class ReviseReason(models.Model):
 
 class CancelReason(models.Model):
 
-    _name = 'Cancel Reason'
+    _name = 'cancel.reason'
     _description = 'Cancel Reason'
 
     name = fields.Char(string='Cancel Reason')
+
+class PaymentType(models.Model):
+
+    _name = 'account.payment.type'
+    _description = 'Account Payment Type'
+
+    name = fields.Char(string='Payment Type')
+
+
