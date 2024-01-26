@@ -1,0 +1,12 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_stock_gin,stock_gin_group_user,model_stock_gin,,1,1,1,1
+access_stock_gin_lines,stock_gin_line_group_user,model_stock_gin_line,,1,1,1,1
+access_stock_rfi,stock_rfi_group_user,model_stock_rfi,,1,1,1,1
+access_stock_rfi_lines,stock_rfi_lines_group_user,model_stock_rfi_lines,,1,1,1,1
+access_stock_rfi_order,stock_rfi_order_group_user,model_stock_rfi_order,,1,1,1,1
+access_sub_d_customer,sub_d_customer_group_user,model_sub_d_customer,,1,1,1,1
+
+
+
+
+

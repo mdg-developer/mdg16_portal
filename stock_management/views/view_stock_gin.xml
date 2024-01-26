@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Form View -->
+    <record id="view_stock_gin_form" model="ir.ui.view">
+        <field name="name">stock.gin.form</field>
+        <field name="model">stock.gin</field>
+        <field name="arch" type="xml">
+            <form string="Good Issue Note Form">
+                <header>
+                    <field name="state" widget="statusbar"/>
+                    <button name="action_approve" attrs="{'invisible': [('state', 'in', ('approve','issue','cancel'))]}" string="Approve" type="object" class="oe_highlight" groups="base.group_user"/>
+                    <button name="action_reversed" attrs="{'invisible': [('state', 'in', ('draft','issue','cancel'))]}" string="Issue" type="object" class="oe_highlight" groups="base.group_user"/>
+                    <button name="action_cancel" attrs="{'invisible': [('state', 'in', ('cancel','issue'))]}" string="Cancel" type="object" class="oe_highlight" groups="base.group_user"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <label string="GIN No" for="name"/>
+                        <h1>
+                            <field name="name" class="oe_inline" />
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="name" />
+                            <field name="state" invisible="1"/>
+                            <field name="sale_team_id" attrs="{'readonly':[('state','=','issue')]}" />
+                            <field name="to_location_id" readonly="1" />
+                            <field name="request_by" readonly="1" />
+                            <field name="issue_date" attrs="{'readonly':[('state','=','issue')]}" />
+                            <field name="write_date" attrs="{'readonly':[('state','=','issue')]}" />
+                            <field name="is_issue_from_optional_location" />
+                            <field name="reverse_date" attrs="{'readonly':[('state','=','reversed')],'invisible': [('state','not in',('issue','reversed'))]}" />
+                            <field name="reverse_user_id" readonly="1" />
+                            <field name="sub_d_customer_id" />
+                            <field name="principle_id" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="request_id" />
+                            <field name="from_location_id" readonly="1" />
+                            <field name="vehicle_id" readonly="1" />
+                            <field name="approve_by" readonly="1" />
+                            <field name="internal_ref" attrs="{'readonly':[('state','=','issue')]}" />
+                            <field name="issue_by" attrs="{'readonly':[('state','=','issue')]}" />
+                            <field name="receiver" attrs="{'readonly':[('state','=','issue')]}" />
+                            <field name="company_id" attrs="{'readonly':[('state','=','issue')]}" invisible="1" />														
+                        </group>
+                        <notebook>
+                            <page string="Stock List" >
+                                <field name="line_ids" >
+                                    <tree string="Good Issue Note Line" editable="bottom" default_order="sequence asc">
+                                        <field name="sequence" invisible="1" />
+                                        <field name="product_id"/>
+                                        <field name="order_qty" />
+                                        <field name="ecommerce_qty" />
+                                        <field name="total_request_qty" />
+                                        <field name="big_issue_quantity" string="Qty (B)" invisible="1" />
+                                        <field name="big_uom_id" invisible="1" />
+                                        <field name="opening_qty" invisible="1" />
+                                        <field name="approved_quantity" invisible="1"/>
+                                        <field name="issue_quantity" string="Qty" />
+                                        <field name="product_uom_id" string="UOM" />
+                                        <field name="uom_ratio" invisible="1" />
+                                        <field name="batch_no" domain="[('product_id', '=',product_id)]" />
+                                        <field name="expiry_date" />
+                                        <field name="qty_on_hand" string="Qty on Hand (S)" />
+                                        <field name="remark" />
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Tree View -->
+    <record id="view_stock_gin_tree" model="ir.ui.view">
+        <field name="name">stock.gin.tree</field>
+        <field name="model">stock.gin</field>
+        <field name="arch" type="xml">
+            <tree string="Contents">
+                <field name="sale_team_id" />
+                <field name="name" />
+                <field name="request_id" />
+                <field name="to_location_id" />
+                <field name="from_location_id" />
+                <field name="issue_date" />
+                <field name="vehicle_id" />
+                <field name="internal_ref" />
+                <field name="state" />
+                <field name="reverse_user_id" />
+            </tree>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_stock_gin" model="ir.actions.act_window">
+        <field name="name">Good Issue Note</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">stock.gin</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="view_stock_gin_tree"/>
+    </record>
+
+    <menuitem id="menu_sale_gin" sequence="80" parent="stock.menu_stock_warehouse_mgmt" name="GIN" />
+    <menuitem id="menu_pre_sale_gin" name="Good Issue Note" parent="menu_sale_gin" action="action_stock_gin" sequence="20"/>
+
+</odoo>

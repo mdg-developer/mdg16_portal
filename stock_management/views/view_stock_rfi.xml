@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Form View -->
+    <record id="view_stock_rfi_form" model="ir.ui.view">
+        <field name="name">stock.rfi.form</field>
+        <field name="model">stock.rfi</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_cancel" type="object" string="Cancel" attrs="{'invisible': [('state', 'not in', ['approve'])]}" data-hotkey="z"/>
+                    <button name="action_approve" type="object" string="Approve" attrs="{'invisible': [('state', 'not in', ['draft'])]}" data-hotkey="z"/>
+                    <button name="action_reversed" type="object" string="Reverse" attrs="{'invisible': [('state', 'not in', ['approve'])]}" data-hotkey="z"/>
+                    <field name='state' widget="statusbar" statusbar_visible="draft,approve,cancel,reversed" statusbar_colors='{"draft":"red","done":"blue"}' />
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <label string="RFI No" for="name"/>
+                        <h1>
+                            <field name="name" class="oe_inline" />
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="delivery_team_id"/>
+                            <field name="company_id"/>
+                            <field name="from_location_id"/>
+                            <field name="to_location_id"/>
+                            <field name="sale_order_no"/>
+                            <field name="receiver"/>
+                            <field name="request_by"/>
+                            <field name="approve_by"/>
+                        </group>
+                        <group>
+                            <field name="request_date"/>
+                            <field name="rfi_from_date"/>
+                            <field name="rfi_to_date"/>
+                            <field name="vehicle_id"/>
+                            <field name="partner_id"/>
+                            <field name="gin_id"/>
+                            <field name="is_pre_rfi"/>
+                            <field name="is_direct_rfi"/>
+                            <field name="is_issue_from_optional_location"/>
+                            <field name="sub_d_customer_id"/>
+                            <field name="principal_id"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Stock">
+                            <field name="stock_rfi_line_ids">
+                                <tree string="Stock Request Line" editable="bottom" default_order="sequence asc">
+                                    <field name="sequence" invisible="1"/>
+                                    <field name="product_id" />
+                                    <field name="order_qty" />
+                                    <field name="ecommerce_qty" />
+                                    <field name="is_pre_rfi" readonly="1"/>
+                                    <field name="big_req_quantity"/>
+                                    <field name="big_uom_id" />
+                                    <field name="req_quantity" />
+                                    <field name="uom_id" />
+                                    <field name="uom_ratio" />
+                                    <field name="qty_on_hand" />
+                                    <field name="remark" />
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Sale Orders" attrs="{'invisible':[('is_direct_rfi','=',True)]}">
+                            <field name="order_line_ids" >
+                                <tree string="Stock Request Order Line" editable="bottom">
+                                    <field name="name" />
+                                    <field name="ref_no" />
+                                    <field name="amount" />
+                                    <field name="date" />
+                                    <field name="sale_team_id" />
+                                    <field name="state" />
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Tree View -->
+    <record id="view_stock_rfi_tree" model="ir.ui.view">
+        <field name="name">stock.rfi.tree</field>
+        <field name="model">stock.rfi</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="delivery_team_id"/>
+                <field name="from_location_id"/>
+                <field name="to_location_id"/>
+                <field name="state"/>
+                <field name="request_by"/>
+                <field name="approve_by"/>
+                <field name="request_date"/>
+                <field name="rfi_from_date"/>
+                <field name="rfi_to_date"/>
+                <field name="vehicle_id"/>
+                <field name="partner_id"/>
+                <field name="gin_id"/>
+                <field name="is_pre_rfi"/>
+                <field name="is_direct_rfi"/>
+                <field name="is_issue_from_optional_location"/>
+                <field name="sub_d_customer_id"/>
+                <field name="principal_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_direct_stock_rfi" model="ir.actions.act_window">
+        <field name="name">Direct Sale RFI</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">stock.rfi</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="view_stock_rfi_tree"/>
+        <field name="domain">[('is_direct_rfi','=',True)]</field> 
+        <field name="context">{
+            'default_is_direct_rfi':True
+            }
+        </field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new Direct Sale RFI
+            </p>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_pre_stock_rfi" model="ir.actions.act_window">
+        <field name="name">Pre-Sale RFI</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">stock.rfi</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="view_stock_rfi_tree"/>
+        <field name="domain">[('is_pre_rfi','=',True)]</field> 
+        <field name="context">{
+            'default_is_pre_rfi':True
+            }
+        </field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new PRE Sale RFI
+            </p>
+        </field>
+    </record>
+    
+    <menuitem id="menu_sale_rfi" sequence="80" parent="sale.sale_order_menu" name="Requisitions" />
+    <menuitem id="menu_pre_sale_rfi" name="Pre-Sale RFI" parent="menu_sale_rfi" action="action_pre_stock_rfi" sequence="10"/>
+    <menuitem id="menu_direct_sale_rfi" name="Direct Sale RFI" parent="menu_sale_rfi" action="action_direct_stock_rfi" sequence="20"/>    
+</odoo>
