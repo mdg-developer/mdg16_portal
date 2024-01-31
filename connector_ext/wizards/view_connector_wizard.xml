@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_clear_message_wizard_form" model="ir.ui.view">
+        <field name="name">connector.wizard.form</field>
+        <field name="model">connector.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Clear Messages">
+                <group col="4" colspan="6">
+                    <footer>
+                        <button name="clear_messages" string="Confirm" type="object" class="oe_highlight"/>
+                    </footer>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_clear_message_wizard" model="ir.actions.act_window">
+        <field name="name">Clear Message Wizard</field>
+        <field name="res_model">connector.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+</odoo>
