@@ -7,10 +7,10 @@
     'website': 'www.myanmardistributiongroup.com',
     'category': 'general/inventory',
     'version': '16.0.0.1',
-    'depends': ['base'],
+    'depends': ['base', 'sale'],
     'data': [
         'security/ir.model.access.csv',
-        # 'views/sample_view.xml',
+        'views/view_product_principal.xml',
     ],
     'demo': [],
     'installable': True,

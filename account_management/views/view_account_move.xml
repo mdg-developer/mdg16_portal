@@ -9,6 +9,7 @@
 			<field name="arch" type="xml">
                 <xpath expr="//field[@name='invoice_user_id']" position="before">
                     <field name="payment_type" string="Payment Type" />
+                    <field name="move_type" string="Move Type" />
                 </xpath>
 			</field>
         </record>

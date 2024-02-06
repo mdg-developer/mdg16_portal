@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="view_sales_group_tree">
+			<field name="name">sales.group.tree</field>
+			<field name="model">sales.group</field>
+			<field name="arch" type="xml">
+				<tree string="Sales Group">
+					<field name="name" />
+					<field name="note"/>
+				</tree>
+			</field>
+		</record>
+
+        <record model='ir.ui.view' id='view_sale_group_form'>
+            <field name='name'>view.sales.group.form</field>
+            <field name='model'>sales.group</field>
+            <field name='arch' type='xml'>
+                <form string="Sales Group Form">
+                    <sheet>
+                        <group>
+                            <field name='name'/>
+                            <field name="principal_ids" widget="many2many_list"/>
+							<field name="product_ids" widget="many2many_tags"/>
+							<field name="sale_team_ids" />
+							<field name="note"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_sales_group_view" model="ir.actions.act_window">
+			<field name="name">Sales Group</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">sales.group</field>
+			<field name="view_mode">tree,form</field>
+			<field name="view_id" eval="view_sales_group_tree" />
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">
+					Click to create new Sale Group.
+				</p>
+			</field>
+		</record>
+
+        <menuitem id="menu_sales_group" action="action_sales_group_view" parent="sale_order_management.menu_sale_order_ext" name="Sales Group" sequence="80" />
+
+    </data>
+</odoo>
