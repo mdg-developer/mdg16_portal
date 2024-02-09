@@ -9,7 +9,7 @@
     'version': '16',
     'depends': ['base', 'account', 'sale_order_management'],
     'data': [
-        # 'security/ir.model.access.csv',
+        'security/ir.model.access.csv',
         'views/view_account_move.xml',
     ],
     'demo': [],

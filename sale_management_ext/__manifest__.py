@@ -7,9 +7,10 @@
     'website': '',
     'category': 'sale',
     'version': '16.0.0.1',
-    'depends': ['crm', 'inventory_management'],
+    'depends': ['crm', 'inventory_management', 'account_management'],
     'data': [
         'views/view_sale_group.xml',
+        'views/view_sale_return_exchange.xml',
         'security/ir.model.access.csv',
     ],
     'demo': [],

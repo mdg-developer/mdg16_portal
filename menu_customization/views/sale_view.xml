@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+<!--        <record model='ir.ui.view' id='sample_model_form_view'>-->
+<!--            <field name='name'>sample.model.form.view</field>-->
+<!--            <field name='model'>sample.model</field>-->
+<!--            <field name='arch' type='xml'>-->
+<!--                <form>-->
+<!--                    <sheet>-->
+<!--                        <group>-->
+<!--                            <field name='name'/>-->
+<!--                        </group>-->
+<!--                    </sheet>-->
+<!--                </form>-->
+<!--            </field>-->
+<!--        </record>-->
+
+        <menuitem id="menu_pre_sale" name="Pre-Sales" parent="sale.sale_menu_root" sequence="21"/>
+        <menuitem id="menu_pre_sale_order" name="Pre Sale Orders" parent="menu_pre_sale" action="sale_order_management.action_pre_sale_order" sequence="10"/>
+        <menuitem id="menu_pre_sale_rfi" name="Pre-Sale RFI" parent="menu_pre_sale" action="stock_management.action_pre_stock_rfi" sequence="20"/>
+
+
+        <menuitem id="menu_direct_sale" name="Direct Sales" parent="sale.sale_menu_root" sequence="22"/>
+        <menuitem id="menu_direct_sale_order" name="Direct Sale Orders" parent="menu_direct_sale" action="sale_order_management.action_direct_sale_order" sequence="10"/>
+        <menuitem id="menu_direct_sale_rfi" name="Direct Sale RFI" parent="menu_direct_sale" action="stock_management.action_direct_stock_rfi" sequence="20"/>
+
+        <menuitem id="menu_gin" name="GIN" parent="sale.sale_menu_root" sequence="23"/>
+        <menuitem id="menu_pre_sale_gin" name="Good Issue Note" parent="menu_gin" action="stock_management.action_stock_gin" sequence="10"/>
+
+<!--        <menuitem id="menu_requisitions" name="Requisitions" parent="sale.sale_menu_root" sequence="24"/>-->
+<!--        <menuitem id="menu_pre_sale_rfi" name="Pre-Sale RFI" parent="menu_requisitions" action="stock_management.action_pre_stock_rfi" sequence="10"/>-->
+<!--        <menuitem id="menu_direct_sale_rfi" name="Direct Sale RFI" parent="menu_requisitions" action="stock_management.action_direct_stock_rfi" sequence="20"/>-->
+
+        <menuitem id="menu_returns_exchanges" name="Returns/Exchanges" parent="sale.sale_menu_root" sequence="24"/>
+        <menuitem id="menu_sales_return" name="Sales Return" parent="menu_returns_exchanges" action="sale_management_ext.action_sales_return" sequence="10"/>
+        <menuitem id="menu_sales_exchange" name="Sales Exchange" parent="menu_returns_exchanges" action="sale_management_ext.action_sales_exchange" sequence="20"/>
+
+</odoo>

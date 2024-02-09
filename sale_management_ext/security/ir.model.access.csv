@@ -1,2 +1,4 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_sale_group,access_sale_group,model_sales_group,base.group_user,1,1,1,1
+access_sales_transactions,access_sales_transactions,model_sales_transactions,base.group_user,1,1,1,1
+access_sales_transactions_lines,access_sales_transactions_lines,model_sales_transactions_lines,base.group_user,1,1,1,1
