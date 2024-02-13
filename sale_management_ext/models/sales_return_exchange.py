@@ -15,14 +15,14 @@ class SalesTransactions(models.Model):
     transaction = fields.Char('ID')
     customer_id = fields.Many2one(comodel_name='res.partner', string='Customer')
     invoice_id = fields.Many2one(comodel_name='account.move', string='Invoice')
-    customer_code = fields.Char(string='Customer Code')
+    customer_code = fields.Char(related='customer_id.customer_code', string='Customer Code')
     team_id = fields.Many2one(comodel_name='crm.team', string='Sale Team')
     date = fields.Datetime(string='Date')
     type = fields.Selection([('exchange', 'Exchange'), ('sale_return', 'Sale Return'),('sale_return_with_credit_note', 'Sale Return with Credit Note')], string='Type')
     line_ids = fields.One2many(comodel_name='sales.transactions.lines', inverse_name='transaction_id', string='Items Lines')
     void_flag = fields.Selection([('none','None'),('voided','Cancel')], string='Void Status')
-    location_id = fields.Many2one(comodel_name='stock.location', string='Location')
-    e_status = fields.Char(string='Status', default='draft')
+    location_id = fields.Many2one(related='team_id.location_id', comodel_name='stock.location', string='Location')
+    state = fields.Selection([('draft', 'Draft'),('done', 'Complete')],string='Status', default='draft')
     note = fields.Text(string='Note')
     location_type = fields.Selection([('normal_stock_returned', 'Normal stock returned'), ('expired', 'Expired'), ('near_expiry', 'Near expiry'),
              ('fresh_stock_minor_damage', 'Fresh stock minor damage'), ('damaged', 'Damaged')], string='Location Type')
@@ -33,7 +33,7 @@ class SalesTransactions(models.Model):
     geo_point = fields.Char(string='Geo Point')
     township_id = fields.Many2one(comodel_name='res.township', string='Township')
     total_value = fields.Float(string='Value Of Out')
-    pricelist_id = fields.Many2one(comodel_name='product_pricelist', string='Product Pricelist')
+    pricelist_id = fields.Many2one(comodel_name='product.pricelist', string='Product Pricelist')
     ams_total = fields.Float(string='3AMS Total')
     out_ams_percent = fields.Float(string='% Out on AMS')
     ams_budget_total = fields.Float(string='Budget')
@@ -41,6 +41,31 @@ class SalesTransactions(models.Model):
     balance_total = fields.Float(string='Balance')
     credit_note_id = fields.Many2one(comodel_name='account.creditnote', string='Credit Note')
     branch_id = fields.Many2one(comodel_name='res.branch', string='Branch')
+
+    @api.model
+    def create(self, vals):
+        id_code = self.env['ir.sequence'].get('product.transaction.code') or '/'
+        vals['name'] = id_code
+        return super(SalesTransactions, self).create(vals)
+
+    @api.onchange('location_type')
+    def onChangeLocationType(self):
+        if self.team_id:
+            if self.location_type == 'normal_stock_returned':
+                self.location_id = self.team_id.normal_return_location_id.id
+            elif self.location_type == 'expired':
+                self.location_id = self.team_id.exp_location_id.id
+            elif self.location_type == 'near_expiry':
+                self.location_id = self.team_id.near_exp_location_id.id
+            elif self.location_type == 'fresh_stock_minor_damage':
+                self.location_id = self.team_id.fresh_stock_not_good_location_id.id
+            elif self.location_type == 'damaged':
+                self.location_id = self.team_id.damage_location_id.id
+
+    def action_create_invoice(self):
+        line_obj = self.env['sales.transactions.lines']
+        invoice_line_obj = self.env['account.invoice.line']
+        invoice_obj = self.env['account.invoice']
 
 class SalesTransactionsLines(models.Model):
 

@@ -8,11 +8,6 @@ from odoo.exceptions import UserError, ValidationError
 
 _logger = logging.getLogger(__name__)
 
-class CrmTeam(models.Model):
-    _inherit = 'crm.team'
-
-    sale_group_id = fields.Many2one('sales.group', string='Sale Group')
-
 class SalesGroup(models.Model):
     _name = 'sales.group'
 

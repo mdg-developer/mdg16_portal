@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+		<record model='ir.ui.view' id='view_crm_team_form_inherit'>
+            <field name='name'>view.crm.team.form.inherit</field>
+            <field name='model'>crm.team</field>
+			<field name="inherit_id" ref="sales_team.crm_team_view_form"/>
+            <field name='arch' type='xml'>
+				<xpath expr="//field[@name='user_id']" position="after">
+					<field name="sale_group_id"/>
+					<field name="location_id" />
+					<field name="normal_return_location_id"/>
+					<field name="exp_location_id"/>
+					<field name="near_exp_location_id"/>
+					<field name="fresh_stock_not_good_location_id"/>
+					<field name="damage_location_id"/>
+				</xpath>
+			</field>
+		</record>
+    </data>
+</odoo>

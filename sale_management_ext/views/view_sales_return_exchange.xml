@@ -17,30 +17,13 @@
 			</field>
 		</record>
 
-        <record id="view_sales_exchange_tree" model="ir.ui.view" >
-			<field name="name">sales.exchange.tree</field>
-			<field name="model">sales.transactions</field>
-			<field name="arch" type="xml">
-				<tree string="Sales Exchange">
-                    <field name="name" />
-					<field name="transaction" />
-					<field name="date" />
-					<field name="customer_id" />
-					<field name="team_id" />
-					<field name="type" />
-					<field name="void_flag" />
-					<field name="invoice_id" />
-				</tree>
-			</field>
-		</record>
-
         <record id='view_sales_return_form' model='ir.ui.view' >
-            <field name='name'>view.sales.return.tree</field>
+            <field name='name'>view.sales.return.form</field>
             <field name='model'>sales.transactions</field>
             <field name='arch' type='xml'>
                 <form string="Sales Exchange Form">
                     <header>
-						<field name="e_status"  />
+						<field name="state"  widget="statusbar" statusbar_visible="draft,done" />
 <!--						<button name="action_convert_ep" string="Convert Stock Move"-->
 <!--							type="object" class="oe_highlight" groups="base.group_user"-->
 <!--							attrs="{'invisible':[('e_status', 'in', ('done','complete'))]}" />-->
@@ -49,21 +32,18 @@
 <!--							attrs="{'invisible':[('e_status', 'in', ('draft','complete'))]}" />-->
 					</header>
 					<sheet>
+						<div class="oe_title">
+							<label for="name"/>
+							<h1>
+								<field name="name" />
+							</h1>
+						</div>
 						<group>
 							<group>
-								<label for="name" />
-								<h5>
-									<field name="name" />
-								</h5>
-								<label for="transaction" />
-								<h5>
-									<field name="transaction" />
-								</h5>
-<!--								<field name="customer_id" required="1" on_change='onchange_customer_id(customer_id)' domain="[('customer', '=',True)]" />-->
-                                <field name="customer_id" required="1" />
+								<field name="transaction" />
+								<field name="customer_id" required="1" />
 								<field name="township_id" />
 								<field name="customer_code" />
-<!--								<field name="team_id" on_change='onchange_team_id(team_id)' />-->
                                 <field name="team_id" />
 								<field name="invoice_id" />
 								<field name="note" />
@@ -77,7 +57,7 @@
 							<group>
 								<field name="date" />
 								<field name="type" />
-<!--								<field name="location_type" on_change="onchange_location_type(team_id,location_type)" attrs="{'readonly':[('e_status', '=', 'done')]}" />-->
+<!--								<field name="location_type" on_change="onchange_location_type(team_id,location_type)" attrs="{'readonly':[('state', '=', 'done')]}" />-->
                                 <field name="location_type" />
 								<field name="void_flag" />
 								<field name="location_id" />
@@ -119,16 +99,33 @@
 									</tree>
 								</field>
 							</page>
-							<page string="Google Map">
-								<group>
-									<widget type="gmap_marker" lat="latitude" lng="longitude" description="field_descriptions" />
-								</group>
-							</page>
+<!--							<page string="Google Map">-->
+<!--								<group>-->
+<!--									<widget type="gmap_marker" lat="latitude" lng="longitude" description="field_descriptions" />-->
+<!--								</group>-->
+<!--							</page>-->
 						</notebook>
 					</sheet>
                 </form>
             </field>
         </record>
+
+		<record id="view_sales_exchange_tree" model="ir.ui.view" >
+			<field name="name">sales.exchange.tree</field>
+			<field name="model">sales.transactions</field>
+			<field name="arch" type="xml">
+				<tree string="Sales Exchange">
+                    <field name="name" />
+					<field name="transaction" />
+					<field name="date" />
+					<field name="customer_id" />
+					<field name="team_id" />
+					<field name="type" />
+					<field name="void_flag" />
+					<field name="invoice_id" />
+				</tree>
+			</field>
+		</record>
 
         <record id="action_sales_return" model="ir.actions.act_window">
 			<field name="name">Sales Return</field>
@@ -136,11 +133,11 @@
             <field name="res_model">sales.transactions</field>
 			<field name="view_mode">tree,form</field>
 			<field name="view_id" ref="view_sales_return_tree" />
-<!--			<field name="domain">[('type','=','sale_return')]</field>-->
-<!--            <field name="context">{-->
-<!--            'default_type':'Exchange'-->
-<!--            }-->
-<!--        </field>-->
+			<field name="domain">[('type','=','sale_return')]</field>
+            <field name="context">{
+				'default_type':'sale_return'
+				}
+        	</field>
 		</record>
 
         <record id="action_sales_exchange" model="ir.actions.act_window">
@@ -149,11 +146,11 @@
             <field name="res_model">sales.transactions</field>
 			<field name="view_mode">tree,form</field>
 			<field name="view_id" ref="view_sales_exchange_tree" />
-<!--			<field name="domain">[('type','=','exchange')]</field>-->
-<!--            <field name="context">{-->
-<!--            'default_type':'Exchange'-->
-<!--            }-->
-<!--        </field>-->
+			<field name="domain">[('type','=','exchange')]</field>
+            <field name="context">{
+						'default_type':'exchange'
+						}
+        	</field>
 		</record>
 
     </data>

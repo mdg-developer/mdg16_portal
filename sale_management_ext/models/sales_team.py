@@ -8,6 +8,22 @@ from odoo.exceptions import UserError, ValidationError
 
 _logger = logging.getLogger(__name__)
 
+class SalesTeam(models.Model):
+
+    _inherit = 'crm.team'
+
+    sale_group_id = fields.Many2one(comodel_name='sales.group', string='Sales Group')
+    sales_person_id = fields.Many2one(comodel_name='sales.person', string='Sales Person')
+    sales_supervisor_id = fields.Many2one(comodel_name='sales.supervisor', string='Sales Supervisor')
+    sales_manager_id = fields.Many2one(comodel_name='sales.manager', string='Sales Manager')
+    join_date = fields.Date(string='Join Date')
+    location_id = fields.Many2one('stock.location', string='Location')
+    normal_return_location_id = fields.Many2one(comodel_name='stock.location', string='Normal Return Location')
+    exp_location_id = fields.Many2one(comodel_name='stock.location', string='Expiry Location')
+    near_exp_location_id = fields.Many2one(comodel_name='stock.location', string='Near Expiry Location')
+    fresh_stock_not_good_location_id = fields.Many2one(comodel_name='stock.location', string='Fresh Stock Minor Damage Location')
+    damage_location_id = fields.Many2one(comodel_name='stock.location', string='Damage location')
+
 class SalesPerson(models.Model):
     _name = 'sales.person'
     _description = 'Sales Person'
@@ -34,16 +50,6 @@ class SalesManager(models.Model):
     branch_ids = fields.Many2many('res.branch', 'sales_manager_branch_rel', 'sales_manager_id', 'branch_id', string='Branch')
     sales_team_ids = fields.One2many('crm.team', 'sales_manager_id', string='Sales Teams')
     active = fields.Boolean('Active', default=True)
-
-class SalesTeam(models.Model):
-
-    _inherit = 'crm.team'
-
-    sale_group_id = fields.Many2one(comodel_name='sales.group', string='Sales Group')
-    sales_person_id = fields.Many2one(comodel_name='sales.person', string='Sales Person')
-    sales_supervisor_id = fields.Many2one(comodel_name='sales.supervisor', string='Sales Supervisor')
-    sales_manager_id = fields.Many2one(comodel_name='sales.manager', string='Sales Manager')
-    join_date = fields.Date(string='Join Date')
 
 
 
